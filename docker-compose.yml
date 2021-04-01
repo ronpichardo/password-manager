@@ -1,5 +1,21 @@
 version: '3'
-
-web:
-  build: app
+services:
+  web:
+    build: ./app
+    ports:
+      - "80:5000"
+    container_name: pw_man
+    volumes:
+      - $HOME/ddata/pwdb:data/db
+    depends_on:
+      - db
+    logging:
+        driver: "json-file"
+        options:
+            max-file: 5
+            max-size: 10m
+  db:
+    image: mongo
+    restart: always
+    container_name: pw_db
 
