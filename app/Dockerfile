@@ -1,11 +1,13 @@
-FROM python:3.9.2-slim
+FROM python:3.9.2-buster
 
-RUN "mkdir app"
+RUN mkdir /app
 
-WORKDIR app/
+WORKDIR /app
 
 COPY . .
 
-EXPOSE 8008
+RUN pip install -r requirements.txt
 
-CMD ["flask", "run"]
+EXPOSE 5000
+
+CMD ["python", "app.py"]
